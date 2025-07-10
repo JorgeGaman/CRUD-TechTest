@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD PROMOCIONES</title>
+  </head>
+  <body>
+    <h1>CRUD PROMOCIONES</h1>
+    <p>Solicita una promocion para tu producto</p>
+
+    <div
+      class="container"
+      id="container"
+      style="display: flex; flex-direction: column; align-items: center"
+    >
+      <div id="panel-carga">
+        <h2>Solicitud de promocion</h2>
+      </div>
+      <div class="panel-formulario">
+        <form id="formulario-promocion">
+          <label for="producto">Nombre del producto:</label>
+          <input type="text" id="nombre" name="nombre" required />
+          <br />
+          <label for="importe">Importe:</label>
+          <input type="number" id="importe" name="importe" required />
+          <br />
+          <label for moneda>Moneda:</label>
+          <select id="moneda" name="moneda" required>
+            <option value="MXN">MXN</option>
+            <option value="USD">USD</option>
+          </select>
+          <br />
+          <label for="fecha">Fecha de inicio:</label>
+          <input type="datetime-local" id="fecha" name="fecha" required />
+          <br />
+          <label for="fechafin">Fecha de fin:</label>
+          <input type="datetime-local" id="fechafin" name="fechafin" required />
+          <br />
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+
+      <div id="panel-visualizacion">
+        <h2>Visualizacion de promociones</h2>
+      </div>
+      <div id="panel-promociones">
+        <table id="tabla-promociones">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Importe</th>
+              <th>Moneda</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Fin</th>
+              <th>Estatus</th>
+              <th>Comentario</th>
+              <th>Acciones (Administrador)</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-promociones"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </body>
+</html>
