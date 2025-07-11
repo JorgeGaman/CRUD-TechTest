@@ -1,11 +1,14 @@
 // mysql connection
 import mysql from "mysql2/promise";
+import env from "dotenv";
+
+env.config();
 
 const dbConfig = {
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "promotions_db",
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "promotions_db",
 };
 const client = mysql.createPool(dbConfig);
 
