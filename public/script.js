@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
       comentario: "",
     };
 
-    // Validacion de inputs.
     if (isNaN(promotion.importe) || promotion.importe <= 0) {
       alert("El importe debe ser un número positivo.");
       return;

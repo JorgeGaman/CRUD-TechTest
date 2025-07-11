@@ -12,11 +12,9 @@ const app = express();
 const server = createServer(app);
 const PORT = process.env.PORT || 3001;
 
-// Middleware
 app.use(express.json());
 app.use(express.static("public"));
 
-// API Routes
 app.get("/api/promotions", async (req, res) => {
   try {
     const promotions = await getPromotions();

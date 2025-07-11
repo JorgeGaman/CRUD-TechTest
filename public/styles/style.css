@@ -143,7 +143,6 @@ container {
   background-color: #fffdf5;
 }
 
-/* Form styles */
 .panel-formulario {
   background-color: white;
   padding: 20px;
@@ -197,7 +196,6 @@ container {
   background-color: #0056b3;
 }
 
-/* Panel styles */
 #panel-promociones {
   width: 100%;
   max-width: 1200px;
