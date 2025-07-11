@@ -3,10 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formulario-promocion");
   const tableBody = document.getElementById("tbody-promociones");
 
-  // Load promotions when page loads
   loadPromotions();
 
-  // Handle form submission
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -21,7 +19,26 @@ document.addEventListener("DOMContentLoaded", function () {
       comentario: "",
     };
 
-    // Submit promotion
+    // Validacion de inputs.
+    if (isNaN(promotion.importe) || promotion.importe <= 0) {
+      alert("El importe debe ser un número positivo.");
+      return;
+    }
+
+    const startDate = new Date(promotion.fecha_inicio);
+    const endDate = new Date(promotion.fecha_fin);
+    const currentDate = new Date();
+
+    if (startDate >= endDate) {
+      alert("La fecha de inicio debe ser anterior a la fecha de fin.");
+      return;
+    }
+
+    if (startDate < currentDate) {
+      alert("La fecha de inicio no puede ser anterior a la fecha actual.");
+      return;
+    }
+
     fetch("/api/promotions", {
       method: "POST",
       headers: {
@@ -31,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("Promotion response:", data);
         if (data.success) {
           alert("Promoción enviada correctamente");
           form.reset();
@@ -45,7 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 
-  // Load promotions from server
   function loadPromotions() {
     fetch("/api/promotions")
       .then((response) => response.json())
@@ -57,14 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  // Render promotions in table
   function renderPromotions(promotions) {
     tableBody.innerHTML = "";
 
     promotions.forEach((promotion) => {
       const row = document.createElement("tr");
 
-      // Add status class for styling
       if (promotion.estatus === "aprobado") {
         row.classList.add("status-approved");
       } else if (promotion.estatus === "rechazado") {
@@ -116,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Format date for display
   function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString("es-ES", {
@@ -127,8 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
       minute: "2-digit",
     });
   }
-
-  // Make functions global so they can be called from onclick
   window.approvePromotion = function (id) {
     updatePromotionStatus(id, "aprobado", "");
   };
@@ -139,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     if (comment === null) {
-      return; // User cancelled
+      return;
     }
 
     if (comment.trim() === "") {
@@ -152,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
     updatePromotionStatus(id, "rechazado", comment.trim());
   };
 
-  // Update promotion status
   function updatePromotionStatus(id, estatus, comentario) {
     fetch(`/api/promotions/${id}`, {
       method: "PUT",

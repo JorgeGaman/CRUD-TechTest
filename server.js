@@ -6,7 +6,7 @@ import {
   insertPromotion,
   updatePromotion,
   getPromotions,
-} from "./script.js";
+} from "./db.js";
 
 const app = express();
 const server = createServer(app);
@@ -32,7 +32,7 @@ app.post("/api/promotions", async (req, res) => {
     const promotion = {
       producto: req.body.nombre,
       importe: req.body.importe,
-      moneda: req.body.moneda === "MXN" ? 1 : 2, // Convert to numeric
+      moneda: req.body.moneda === "MXN" ? 1 : 2,
       fecha_inicio: req.body.fecha_inicio,
       fecha_fin: req.body.fecha_fin,
       estatus: 1, // 1 = pendiente, 2 = aprobado, 3 = rechazado
@@ -52,7 +52,6 @@ app.put("/api/promotions/:id", async (req, res) => {
     const id = req.params.id;
     const { estatus, comentario } = req.body;
 
-    // Convert status text to numeric
     let statusNumeric;
     switch (estatus) {
       case "pendiente":
