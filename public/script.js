@@ -1,4 +1,3 @@
-// Client-side JavaScript for CRUD operations
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formulario-promocion");
   const tableBody = document.getElementById("tbody-promociones");
@@ -73,7 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error loading promotions:", error);
       });
   }
-
   function renderPromotions(promotions) {
     tableBody.innerHTML = "";
 
